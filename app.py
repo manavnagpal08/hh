@@ -1,74 +1,77 @@
 import streamlit as st
-import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Animated Login", layout="centered")
+st.set_page_config(page_title="Visme Style Form", layout="wide")
 
-# Inject CSS animations
+# Custom CSS to mimic Visme style
 st.markdown("""
     <style>
     body {
-        background: #f5f7fa;
+        background-color: #4267F5;
     }
-    .card {
-        max-width: 400px;
-        margin: auto;
-        padding: 2rem;
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .left {
+        flex: 1;
+        text-align: center;
+    }
+    .right {
+        flex: 1;
         background: white;
         border-radius: 20px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        transition: all 0.5s ease-in-out;
-    }
-    .card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        padding: 2rem;
+        margin-right: 10%;
+        margin-left: 5%;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     }
     .title {
         font-size: 1.5rem;
         font-weight: bold;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         text-align: center;
         color: #333;
     }
-    .btn {
-        background: linear-gradient(135deg, #667eea, #764ba2);
+    input, textarea {
+        border-radius: 10px !important;
+        padding: 0.8rem !important;
+        margin-bottom: 1rem !important;
+        border: 1px solid #ddd !important;
+    }
+    .stButton button {
+        background: linear-gradient(135deg, #28a745, #34d058);
         color: white;
-        padding: 0.7rem;
-        border: none;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 0.8rem;
         border-radius: 10px;
-        cursor: pointer;
         width: 100%;
-        font-size: 1rem;
         transition: background 0.3s ease-in-out;
     }
-    .btn:hover {
-        background: linear-gradient(135deg, #764ba2, #667eea);
+    .stButton button:hover {
+        background: linear-gradient(135deg, #34d058, #28a745);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Tabs for Login / Register
-tab1, tab2 = st.tabs(["🔑 Login", "📝 Register"])
+# Layout (2 columns)
+col1, col2 = st.columns([1,1])
 
-with tab1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="title">Login</div>', unsafe_allow_html=True)
+with col1:
+    st.image("https://cdn3d.iconscout.com/3d/premium/thumb/businessman-5678594-4731219.png", width=350)  # sample 3D character
 
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    if st.button("Login", key="login", help="Sign in with Firebase"):
-        # TODO: Call your Firebase sign-in logic here
-        st.success(f"Logged in as {email}")
+with col2:
+    st.markdown('<div class="right">', unsafe_allow_html=True)
+    st.markdown('<div class="title">What’s your name?</div>', unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    name = st.text_input("Name", placeholder="First Name")
+    surname = st.text_input("Surname", placeholder="Last Name")
+    email = st.text_input("Email", placeholder="Ex. yourname@company.com")
 
-with tab2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="title">Register</div>', unsafe_allow_html=True)
-
-    new_email = st.text_input("Email", key="reg_email")
-    new_password = st.text_input("Password", type="password", key="reg_pass")
-    if st.button("Register", key="register", help="Create new Firebase account"):
-        # TODO: Call your Firebase register logic here
-        st.success(f"Account created for {new_email}")
+    if st.button("Next"):
+        # TODO: Integrate with Firebase
+        st.success(f"Saved: {name} {surname}, {email}")
 
     st.markdown('</div>', unsafe_allow_html=True)
